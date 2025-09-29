@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kartik ka Swag</title>
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #d81b60;
+    text-align: center;
+  }
+  h1 {
+    font-size: 120px;
+    font-weight: bold;
+    margin: 0;
+    opacity: 0;
+    animation: fadeInDown 1s forwards;
+    animation-delay: 0.3s;
+  }
+  p {
+    font-size: 24px;
+    margin: 20px;
+    opacity: 0;
+    animation: fadeInUp 1s forwards;
+    animation-delay: 1s;
+  }
+  .doors {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+    opacity: 0;
+    animation: fadeIn 0.7s forwards;
+    animation-delay: 2s;
+  }
+  .door {
+    width: 100px;
+    height: 150px;
+    background-color: #4caf50;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 10px;
+    user-select: none;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 2, 0.6, 1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  }
+  .door.open {
+    transform: rotateY(100deg) scale(1.05);
+    background-color: #81c784;
+  }
+  .door:hover {
+    transform: scale(1.08);
+  }
+  #result {
+    margin-top: 40px;
+    font-size: 48px;
+    font-weight: bold;
+    min-height: 60px;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  #result.animated {
+    animation: bounce 0.8s;
+    opacity: 1;
+  }
+  @keyframes fadeInDown {
+    from {transform: translateY(-50px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+  }
+  @keyframes fadeInUp {
+    from {transform: translateY(50px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+  }
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  @keyframes bounce {
+    0%   {transform: scale(1);}
+    30%  {transform: scale(1.2);}
+    50%  {transform: scale(0.9);}
+    70%  {transform: scale(1.05);}
+    100% {transform: scale(1);}
+  }
+</style>
+</head>
+<body>
+
+<h1>Kartik ka Swag 💖</h1>
+<p>Roses are red,<br>Violets are blue,<br>Click a door,<br>And see something new!</p>
+
+<div class="doors">
+  <div class="door" onclick="showResult(this, '🤡')">Door 1</div>
+  <div class="door" onclick="showResult(this, '😊')">Door 2</div>
+  <div class="door" onclick="showResult(this, '👹')">Door 3</div>
+</div>
+
+<div id="result"></div>
+
+<script>
+  // Fade in result emoji and bounce
+  function showResult(doorElem, symbol) {
+    document.querySelectorAll('.door').forEach(el => el.classList.remove('open'));
+    doorElem.classList.add('open');
+    const result = document.getElementById('result');
+    result.textContent = symbol;
+    result.classList.remove('animated');
+    // Force reflow to restart animation
+    void result.offsetWidth;
+    result.classList.add('animated');
+    result.style.opacity = 1;
+  }
+  // Optional: Reset doors if user clicks result
+  document.getElementById('result').onclick = () => {
+    document.querySelectorAll('.door').forEach(el => el.classList.remove('open'));
+    const result = document.getElementById('result');
+    result.classList.remove('animated');
+    result.style.opacity = 0;
+    result.textContent = "";
+  };
+</script>
+
+</body>
+</html>
